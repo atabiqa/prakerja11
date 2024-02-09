@@ -16,7 +16,7 @@ func InitRoute(e *echo.Echo) {
 	e.POST("/register", auth.RegisterController)
 
 	eAuth := e.Group("")
-	eAuth.Use(echojwt.JWT([]byte("123")))
+	eAuth.Use(echojwt.JWT([]byte("")))
 	eAuth.GET("/users", userr.GetUserController)
 
 }
