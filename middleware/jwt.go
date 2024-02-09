@@ -23,7 +23,7 @@ func GenerateTokenJWT(userid int, name string) string {
 	// Create token with claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// Generate encoded token and send it as response.
-	resultJWT, _ := token.SignedString([]byte(""))
+	resultJWT, _ := token.SignedString([]byte("os.getenv('SECRET_KEY')"))
 
 	return resultJWT
 }

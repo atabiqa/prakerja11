@@ -28,10 +28,10 @@ func RegisterController(c echo.Context) error {
 	}
 
 	var authRespon = usermodel.ResponseAuth{
-		user.Id,
-		user.Name,
-		user.Email,
-		middleware.GenerateTokenJWT(user.Id, user.Name),
+		Id:    user.Id,
+		Name:  user.Name,
+		Email: user.Email,
+		Token: middleware.GenerateTokenJWT(user.Id, user.Name),
 	}
 
 	return c.JSON(http.StatusOK, base.BaseResponse{
