@@ -3,6 +3,7 @@ package routes
 import (
 	"atabiqa/prakerja11/controllers/userr"
 
+	echojwt "github.com/labstack/echo-jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -10,6 +11,6 @@ import (
 func InitRoute(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
-
+	e.Use(echojwt.JWT([]byte("123")))
 	e.GET("/users", userr.GetUserController)
 }
