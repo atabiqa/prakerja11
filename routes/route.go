@@ -12,8 +12,11 @@ import (
 func InitRoute(e *echo.Echo) {
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Logger())
-	e.Use(echojwt.JWT([]byte("123")))
-	e.GET("/users", userr.GetUserController)
 	e.POST("/login", auth.LoginController)
 	e.POST("/register", auth.RegisterController)
+
+	eAuth := e.Group("")
+	eAuth.Use(echojwt.JWT([]byte("123")))
+	eAuth.GET("/users", userr.GetUserController)
+
 }

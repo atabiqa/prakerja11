@@ -10,7 +10,7 @@ import (
 func LoginController(c echo.Context) error {
 	return c.JSON(http.StatusOK, base.BaseResponse{
 		Status:  true,
-		Message: "register succes",
+		Message: "login succes",
 		Data:    nil,
 	})
 }

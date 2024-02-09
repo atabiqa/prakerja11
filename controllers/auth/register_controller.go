@@ -2,8 +2,9 @@ package auth
 
 import (
 	"atabiqa/prakerja11/configs"
+	"atabiqa/prakerja11/middleware"
 	"atabiqa/prakerja11/models/base"
-	"atabiqa/prakerja11/models/user"
+	usermodel "atabiqa/prakerja11/models/user"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -11,7 +12,7 @@ import (
 )
 
 func RegisterController(c echo.Context) error {
-	var user user.User
+	var user usermodel.User
 	c.Bind(&user)
 
 	hashPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 13)
@@ -25,9 +26,17 @@ func RegisterController(c echo.Context) error {
 			Data:    nil,
 		})
 	}
+
+	var authRespon = usermodel.ResponseAuth{
+		user.Id,
+		user.Name,
+		user.Email,
+		middleware.GenerateTokenJWT(user.Id, user.Name),
+	}
+
 	return c.JSON(http.StatusOK, base.BaseResponse{
 		Status:  true,
 		Message: "register succes",
-		Data:    user,
+		Data:    authRespon,
 	})
 }
